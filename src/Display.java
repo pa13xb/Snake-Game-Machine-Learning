@@ -19,7 +19,7 @@ class Display extends JPanel {
         setSize(numTiles*tileSize, numTiles*tileSize);
         setBounds(0,0,numTiles*tileSize+1, numTiles*tileSize+1);
         setVisible(true);
-    }
+    }//constructor
 
     @Override
     public void paint(Graphics graphics) {
@@ -47,21 +47,21 @@ class Display extends JPanel {
             graphics.setFont(new Font("Arial", Font.PLAIN, 22));
             graphics.drawString("Time Survived = "+timeSurvived, tileSize*3+tileSize/3, ((numTiles / 2) * tileSize) + tileSize + 12);
         }
-    }
+    }//paint
 
     void setGameBoard(int[][] gameBoard) {
         this.gameBoard = gameBoard;
-    }
+    }//setGameBoard
 
     void setGameOver(int score, int timeSurvived){
         gameOver = true;
         this.score = score;
         this.timeSurvived = timeSurvived;
-    }
+    }//setGameOver
 
     void reset(){
         gameOver = false;
         score = 0;
         timeSurvived = 0;
-    }
+    }//reset
 }
