@@ -25,7 +25,7 @@ public class RProp implements LearningRule {
     }
 
     @Override
-    public void setLearningRate(double learningRate) {    }
+    public void setLearningRate(double learningRate) {  }
 
     @Override
     public void setMomentum(double momentum) { }
@@ -129,6 +129,84 @@ public class RProp implements LearningRule {
                 }
             }
             error = error / trainingSet.size();
+            if (epoch % 50 == 0) System.out.println("Epoch " + epoch + ", Error: " + error);
+            epoch++;
+        }//epochs
+        return weightsAndBiases;
+    }//train
+
+    @Override
+    public double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch) {
+        if(maxEpochs == -1 && errorGoal == -1) errorGoal = 0.1;
+        double[][][] prevChanges = new double[weightsAndBiases.length][][]; //Create Prev Changes: create the layers array
+        for(int layer = 0; layer < weightsAndBiases.length; layer++){
+            prevChanges[layer] = new double[weightsAndBiases[layer].length][]; //create the nodes arrays
+            for (int node = 0; node < weightsAndBiases[layer].length; node++) {
+                prevChanges[layer][node] = new double[weightsAndBiases[layer][node].length]; //create the connections arrays
+                for (int prevNode = 0; prevNode < weightsAndBiases[layer][node].length; prevNode++) {
+                    prevChanges[layer][node][prevNode] = 1; //initialize the connections
+                }
+            }
+        }
+        int epoch = 0;
+        double error = Double.MAX_VALUE; //temporary value to get through the first while loop
+        //End conditions: #epochs or errorGoal reached. -1 indicates that the other method is being used (both is applicable too)
+        while((epoch < maxEpochs || epoch == -1) && (errorGoal == -1 || error > errorGoal)) { //Start of each epoch
+            error = 0;
+            double[][][] weightsAndBiasChanges = new double[weightsAndBiases.length][][]; //Create W&BChanges: create the layers array
+            for(int layer = 0; layer < weightsAndBiases.length; layer++){
+                weightsAndBiasChanges[layer] = new double[weightsAndBiases[layer].length][]; //create the nodes arrays
+                for (int node = 0; node < weightsAndBiases[layer].length; node++) {
+                    weightsAndBiasChanges[layer][node] = new double[weightsAndBiases[layer][node].length]; //create the connections arrays
+                    for (int prevNode = 0; prevNode < weightsAndBiases[layer][node].length; prevNode++) {
+                        weightsAndBiasChanges[layer][node][prevNode] = 0; //initialize the connections
+                    }
+                }
+            }//initialize weightsAndBiasChanges
+            for (int exampleNum = 0; exampleNum < movesPerEpoch; exampleNum++) { //iterate through each training example
+                SnakeGame snakeGame = new SnakeGame(12);
+                while (exampleNum < movesPerEpoch) {
+                    double[] trainingRow = snakeGame.getTrainingRow();
+                    boolean display = false;
+                    if (exampleNum == 0) display = true;
+                    double[][] activationLayers = getActivationLayers(trainingRow, weightsAndBiases);
+                    double[] desiredOutput = snakeGame.calculateBestMove(1,1,1); //initialize desiredOutput for the output layer
+                    error += calculateError(activationLayers[activationLayers.length - 1], desiredOutput);
+                    //THE RECURSIVE FUNCTION CALL
+                    trainRecursive(weightsAndBiases.length - 1, weightsAndBiases, weightsAndBiasChanges, activationLayers, desiredOutput, display);
+                    exampleNum++;
+                }
+            }
+            for(int layer = 0; layer < weightsAndBiases.length; layer++){
+                for (int node = 0; node < weightsAndBiases[layer].length; node++) {
+                    for (int prevNode = 0; prevNode < weightsAndBiases[layer][node].length; prevNode++) {
+                        double currentGradient = weightsAndBiasChanges[layer][node][prevNode];
+                        double previousGradient = prevChanges[layer][node][prevNode];
+                        double step = 0;
+                        if(currentGradient < 0) { //current gradient is negative
+                            if(currentGradient * previousGradient < 0){ //Switched from positive to negative
+                                step = -previousGradient * decreaseRate; //take negative of last step, decreased
+                                if(step > -minStep) step = -minStep; //step can't be smaller (more positive) than -minStep
+                            } else{ //was negative, still more negative
+                                step = previousGradient * increaseRate; //negative gradient is now more negative
+                                if(step < -maxStep) step = -maxStep; //step can't be greater (more negative) than -maxStep
+                            }
+                        }
+                        else if(currentGradient > 0) { //current gradient is positive
+                            if(currentGradient * previousGradient < 0){ //Switched from negative to positive
+                                step = -previousGradient * decreaseRate; //take negative of last step, decreased
+                                if(step < minStep) step = minStep; //step can't be smaller (more negative) than minStep
+                            } else{ //was positive, still more positive
+                                step = previousGradient * increaseRate; //positive gradient is now more positive
+                                if(step > maxStep) step = maxStep; //step can't be greater (more positive) than maxStep
+                            }
+                        }
+                        weightsAndBiases[layer][node][prevNode] -= step; //apply change to weight
+                        prevChanges[layer][node][prevNode] = step; //record change to prevChanges
+                    }
+                }
+            }
+            error = error / movesPerEpoch;
             if (epoch % 50 == 0) System.out.println("Epoch " + epoch + ", Error: " + error);
             epoch++;
         }//epochs

@@ -27,4 +27,6 @@ public interface LearningRule {
     void setActivationFunction(ActivationFunction activationFunction);
 
     double[][][] train(double[][][] weightsAndBiases, LinkedList<double[]> trainingSet, LinkedList<double[]> desiredResults);
+
+    double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch);
 }

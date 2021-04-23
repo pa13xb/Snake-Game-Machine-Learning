@@ -61,6 +61,10 @@ public class NeuralNet {
         weightsAndBiases = learningRule.train(weightsAndBiases, trainingSet, desiredResults);
     }//train
 
+    public void selfTrain(int movesPerEpoch){
+        weightsAndBiases = learningRule.selfTrain(weightsAndBiases, movesPerEpoch);
+    }//selfTrain
+
     public double[] calculate(double[] testingRow){
         double[] prevLayer = testingRow.clone();
         double[] output = null;
@@ -73,7 +77,6 @@ public class NeuralNet {
                 }
                 double bias = weightsAndBiases[layer][node][layers[layer]];
                 output[node] = activationFunction.calculate(sumProduct + bias);
-                //System.out.print("\t"+output[node]);
             }
             prevLayer = output.clone();
         }
