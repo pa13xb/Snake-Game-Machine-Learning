@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
@@ -12,11 +13,13 @@ public class NeuralNet {
     private LinkedList<double[]> trainingSet;   //rows of training data
     private LinkedList<double[]> desiredResults;//desired results for training data rows
     private double[][][] weightsAndBiases; //weights in biases (last entry of each row is for biases)
-    private int[] layers;
+    private int[] layers; //holds number of nodes per layer
     private int inputNeurons;
     private int outputNeurons;
     private LearningRule learningRule;
     private ActivationFunction activationFunction;
+    private String experimentResults = "";
+    private double finalError = 0;
 
     public NeuralNet(int[] layers){
         this.layers = layers;
@@ -31,6 +34,23 @@ public class NeuralNet {
             weightsAndBiases[layer] = new double[layers[layer+1]][layers[layer]+1];//last entry for biases (hence +1)
         }
         randomizeWeightsAndBiases();
+    }//Constructor
+
+    public NeuralNet(double[][][] weightsAndBiases){
+        inputNeurons = weightsAndBiases[0][0].length - 1;
+        outputNeurons = weightsAndBiases[weightsAndBiases.length - 1].length;
+        activationFunction = new Sigmoid();
+        trainingSet = new LinkedList<>();
+        desiredResults = new LinkedList<>();
+        learningRule = new RProp();
+        this.weightsAndBiases = weightsAndBiases;
+        layers = new int[weightsAndBiases.length + 1];
+        layers[0] = inputNeurons;
+        for(int i = 0; i < layers.length - 1; i++){
+            layers[i + 1] = weightsAndBiases[i].length;
+        }
+        System.out.println("Layers.length = "+layers.length+", weights&Biases.length = "+weightsAndBiases.length);
+        System.out.println("inputNeurons = "+inputNeurons+", outputNeurons = "+outputNeurons);
     }//Constructor
 
     public void randomizeWeightsAndBiases(){
@@ -61,8 +81,10 @@ public class NeuralNet {
         weightsAndBiases = learningRule.train(weightsAndBiases, trainingSet, desiredResults);
     }//train
 
-    public void selfTrain(int movesPerEpoch){
-        weightsAndBiases = learningRule.selfTrain(weightsAndBiases, movesPerEpoch);
+    public void selfTrain(int movesPerEpoch, long randomSeed){
+        weightsAndBiases = learningRule.selfTrain(weightsAndBiases, movesPerEpoch, randomSeed);
+        experimentResults = learningRule.getExperimentResults();
+        finalError = learningRule.getFinalError();
     }//selfTrain
 
     public double[] calculate(double[] testingRow){
@@ -91,5 +113,17 @@ public class NeuralNet {
         this.activationFunction = actFunc;
         learningRule.setActivationFunction(actFunc);
     }//setActivationFunction
+
+    public double[][][] getWeightsAndBiases() {
+        return weightsAndBiases;
+    }
+
+    public double getError() {
+        return finalError;
+    }
+
+    public String getExperimentResults(){
+        return experimentResults;
+    }
 }
 

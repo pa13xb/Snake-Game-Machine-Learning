@@ -115,8 +115,18 @@ public class BackProp implements LearningRule {
     }//train
 
     @Override
-    public double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch) {
+    public double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch, long randomSeed) {
         return new double[0][][];
+    }
+
+    @Override
+    public String getExperimentResults() {
+        return null;
+    }
+
+    @Override
+    public double getFinalError() {
+        return 0;
     }
 
     private void trainRecursive(int layer, double[][][] weightsAndBiases, double[][][] weightsAndBiasChanges, double[][] activationLayers, double[] desiredOutput){

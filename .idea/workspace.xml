@@ -3,6 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="d1e8a008-cd0e-4800-a980-10a55ffcb572" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/SnakeGame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/SnakeGame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/SnakeGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake-Game-Machine-Learning/SnakeGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BackProp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BackProp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LearningRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LearningRule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
@@ -25,10 +29,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="586">
-              <caret line="100" column="52" selection-start-line="100" selection-start-column="52" selection-end-line="100" selection-end-column="52" />
+            <state relative-caret-position="195">
+              <caret line="209" column="121" lean-forward="true" selection-start-line="209" selection-start-column="121" selection-end-line="209" selection-end-column="121" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#playAIGames#0;class#Main#0" />
+                <element signature="method#loadNeuralNetwork#0;class#Main#0" />
+                <element signature="e#12221#12222#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -37,35 +44,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SnakeGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="61" column="24" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+            <state relative-caret-position="1380">
+              <caret line="509" column="49" lean-forward="true" selection-start-line="509" selection-start-column="49" selection-end-line="509" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#SnakeGame#1;class#SnakeGame#0" />
                 <element signature="method#getKeyListener#0;class#SnakeGame#0" />
                 <element signature="method#resetGameBoard#0;class#SnakeGame#0" />
                 <element signature="method#humanPlayGame#0;class#SnakeGame#0" />
+                <element signature="e#9510#11078#0" />
                 <element signature="method#playAIMove#0;class#SnakeGame#0" />
-                <element signature="method#calculateBestMove#1;class#SnakeGame#0" />
-                <element signature="e#17439#18821#0" />
-                <element signature="e#20489#22463#0" />
+                <element signature="e#17836#19218#0" />
+                <element signature="e#21534#23146#1" />
+                <element signature="e#21300#23108#0" />
                 <element signature="method#calcRecursive#0;class#SnakeGame#0" />
                 <element signature="method#collision#0;class#SnakeGame#0" />
                 <element signature="method#generateApple#0;class#SnakeGame#0" />
-                <element signature="e#22251#22252#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/NeuralNet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
-              <folding>
-                <element signature="method#randomizeWeightsAndBiases#0;class#NeuralNet#0" />
-                <element signature="method#addTrainingRow#0;class#NeuralNet#0" />
-                <element signature="method#clearTrainingSets#0;class#NeuralNet#0" />
+                <element signature="e#26394#26427#1" />
+                <element signature="e#28502#28503#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,27 +70,54 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/RProp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="45" column="22" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
+            <state relative-caret-position="249">
+              <caret line="213" column="42" lean-forward="true" selection-start-line="213" selection-start-column="42" selection-end-line="213" selection-end-column="42" />
               <folding>
                 <element signature="method#setActivationFunction#0;class#RProp#0" />
+                <element signature="method#train#0;class#RProp#0" />
+                <element signature="e#10828#13070#1" />
                 <element signature="method#trainRecursive#0;class#RProp#0" />
                 <element signature="method#getActivationLayers#0;class#RProp#0" />
                 <element signature="method#calculateError#0;class#RProp#0" />
+                <element signature="e#17750#17751#0" expanded="true" />
+                <element signature="e#17790#17791#0" expanded="true" />
+                <element signature="e#17897#17898#0" expanded="true" />
+                <element signature="e#17930#17931#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BackProp.java">
+        <entry file="file://$PROJECT_DIR$/src/NeuralNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
+            <state relative-caret-position="235">
+              <caret line="84" column="45" lean-forward="true" selection-start-line="84" selection-start-column="45" selection-end-line="84" selection-end-column="45" />
               <folding>
-                <element signature="e#5623#5624#0" expanded="true" />
-                <element signature="e#5663#5664#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#NeuralNet#0;class#NeuralNet#0" />
+                <element signature="method#NeuralNet#1;class#NeuralNet#0" />
+                <element signature="method#randomizeWeightsAndBiases#0;class#NeuralNet#0" />
+                <element signature="method#addTrainingRow#0;class#NeuralNet#0" />
+                <element signature="method#clearTrainingSets#0;class#NeuralNet#0" />
+                <element signature="e#3247#3248#0" expanded="true" />
+                <element signature="e#4474#4475#0" expanded="true" />
+                <element signature="method#setActivationFunction#0;class#NeuralNet#0" />
+                <element signature="e#4772#4773#0" expanded="true" />
+                <element signature="e#4809#4810#0" expanded="true" />
+                <element signature="e#4842#4843#0" expanded="true" />
+                <element signature="e#4884#4885#0" expanded="true" />
+                <element signature="e#4924#4925#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/LearningRule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -112,6 +135,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>random</find>
+      <find>System.out.prin</find>
+      <find>hunger</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -122,24 +147,24 @@
       <list>
         <option value="$PROJECT_DIR$/src/BasicLinkedList.java" />
         <option value="$PROJECT_DIR$/src/Display.java" />
-        <option value="$PROJECT_DIR$/src/Sigmoid.java" />
         <option value="$PROJECT_DIR$/src/ActivationFunction.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Node.java" />
+        <option value="$PROJECT_DIR$/src/Sigmoid.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/src/SnakeGame.java" />
         <option value="$PROJECT_DIR$/src/LearningRule.java" />
         <option value="$PROJECT_DIR$/src/NeuralNet.java" />
-        <option value="$PROJECT_DIR$/src/BackProp.java" />
         <option value="$PROJECT_DIR$/src/RProp.java" />
-        <option value="$PROJECT_DIR$/src/SnakeGame.java" />
+        <option value="$PROJECT_DIR$/src/BackProp.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="1939" />
-    <option name="height" value="1049" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -149,6 +174,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -165,7 +191,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -223,7 +248,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17449665" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.12214765" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -232,7 +257,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.28611898" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34702548" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -240,14 +265,14 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.32719547" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24966443" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Maven" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="CodeTogether" order="6" weight="0.3295302" />
+      <window_info anchor="right" id="CodeTogether" order="6" weight="0.15369128" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
@@ -267,34 +292,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Sigmoid.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ActivationFunction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/LearningRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackProp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
-          <folding>
-            <element signature="e#5623#5624#0" expanded="true" />
-            <element signature="e#5663#5664#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -305,58 +306,129 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/RProp.java">
+    <entry file="jar://$JAVA_JDK_8$/src.zip!/java/io/FileOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="45" column="22" selection-start-line="45" selection-start-column="22" selection-end-line="45" selection-end-column="22" />
-          <folding>
-            <element signature="method#setActivationFunction#0;class#RProp#0" />
-            <element signature="method#trainRecursive#0;class#RProp#0" />
-            <element signature="method#getActivationLayers#0;class#RProp#0" />
-            <element signature="method#calculateError#0;class#RProp#0" />
-          </folding>
+        <state relative-caret-position="493">
+          <caret line="98" column="7" lean-forward="true" selection-start-line="98" selection-start-column="7" selection-end-line="98" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NeuralNet.java">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="81" column="9" lean-forward="true" selection-start-line="81" selection-start-column="9" selection-end-line="81" selection-end-column="9" />
-          <folding>
-            <element signature="method#randomizeWeightsAndBiases#0;class#NeuralNet#0" />
-            <element signature="method#addTrainingRow#0;class#NeuralNet#0" />
-            <element signature="method#clearTrainingSets#0;class#NeuralNet#0" />
-          </folding>
+        <state relative-caret-position="361">
+          <caret line="57" column="8" selection-start-line="57" selection-start-column="8" selection-end-line="57" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SnakeGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="61" column="24" lean-forward="true" selection-start-line="61" selection-start-column="24" selection-end-line="61" selection-end-column="24" />
+        <state relative-caret-position="1380">
+          <caret line="509" column="49" lean-forward="true" selection-start-line="509" selection-start-column="49" selection-end-line="509" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#SnakeGame#1;class#SnakeGame#0" />
             <element signature="method#getKeyListener#0;class#SnakeGame#0" />
             <element signature="method#resetGameBoard#0;class#SnakeGame#0" />
             <element signature="method#humanPlayGame#0;class#SnakeGame#0" />
+            <element signature="e#9510#11078#0" />
             <element signature="method#playAIMove#0;class#SnakeGame#0" />
-            <element signature="method#calculateBestMove#1;class#SnakeGame#0" />
-            <element signature="e#17439#18821#0" />
-            <element signature="e#20489#22463#0" />
+            <element signature="e#17836#19218#0" />
+            <element signature="e#21534#23146#1" />
+            <element signature="e#21300#23108#0" />
             <element signature="method#calcRecursive#0;class#SnakeGame#0" />
             <element signature="method#collision#0;class#SnakeGame#0" />
             <element signature="method#generateApple#0;class#SnakeGame#0" />
-            <element signature="e#22251#22252#0" expanded="true" />
+            <element signature="e#26394#26427#1" />
+            <element signature="e#28502#28503#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/RProp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="213" column="42" lean-forward="true" selection-start-line="213" selection-start-column="42" selection-end-line="213" selection-end-column="42" />
+          <folding>
+            <element signature="method#setActivationFunction#0;class#RProp#0" />
+            <element signature="method#train#0;class#RProp#0" />
+            <element signature="e#10828#13070#1" />
+            <element signature="method#trainRecursive#0;class#RProp#0" />
+            <element signature="method#getActivationLayers#0;class#RProp#0" />
+            <element signature="method#calculateError#0;class#RProp#0" />
+            <element signature="e#17750#17751#0" expanded="true" />
+            <element signature="e#17790#17791#0" expanded="true" />
+            <element signature="e#17897#17898#0" expanded="true" />
+            <element signature="e#17930#17931#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$JAVA_JDK_8$/src.zip!/java/io/ObjectOutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="717" column="16" selection-start-line="717" selection-start-column="16" selection-end-line="717" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BackProp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="115" lean-forward="true" selection-start-line="115" selection-end-line="115" />
+          <folding>
+            <element signature="e#5738#5739#0" expanded="true" />
+            <element signature="e#5765#5766#0" expanded="true" />
+            <element signature="e#5816#5817#0" expanded="true" />
+            <element signature="e#5840#5841#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Sigmoid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NeuralNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="84" column="45" lean-forward="true" selection-start-line="84" selection-start-column="45" selection-end-line="84" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#NeuralNet#0;class#NeuralNet#0" />
+            <element signature="method#NeuralNet#1;class#NeuralNet#0" />
+            <element signature="method#randomizeWeightsAndBiases#0;class#NeuralNet#0" />
+            <element signature="method#addTrainingRow#0;class#NeuralNet#0" />
+            <element signature="method#clearTrainingSets#0;class#NeuralNet#0" />
+            <element signature="e#3247#3248#0" expanded="true" />
+            <element signature="e#4474#4475#0" expanded="true" />
+            <element signature="method#setActivationFunction#0;class#NeuralNet#0" />
+            <element signature="e#4772#4773#0" expanded="true" />
+            <element signature="e#4809#4810#0" expanded="true" />
+            <element signature="e#4842#4843#0" expanded="true" />
+            <element signature="e#4884#4885#0" expanded="true" />
+            <element signature="e#4924#4925#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LearningRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="18" lean-forward="true" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
-          <caret line="100" column="52" selection-start-line="100" selection-start-column="52" selection-end-line="100" selection-end-column="52" />
+        <state relative-caret-position="195">
+          <caret line="209" column="121" lean-forward="true" selection-start-line="209" selection-start-column="121" selection-end-line="209" selection-end-column="121" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#playAIGames#0;class#Main#0" />
+            <element signature="method#loadNeuralNetwork#0;class#Main#0" />
+            <element signature="e#12221#12222#0" expanded="true" />
           </folding>
         </state>
       </provider>

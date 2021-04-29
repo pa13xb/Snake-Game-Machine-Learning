@@ -17,6 +17,8 @@ public class RProp implements LearningRule {
     private int maxEpochs;
     private double errorGoal;
     private ActivationFunction activationFunction;
+    private String experimentResults = "";
+    private double finalError = 0;
 
     RProp(){
         this.activationFunction = new Sigmoid();
@@ -136,7 +138,7 @@ public class RProp implements LearningRule {
     }//train
 
     @Override
-    public double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch) {
+    public double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch, long randomSeed) {
         if(maxEpochs == -1 && errorGoal == -1) errorGoal = 0.1;
         double[][][] prevChanges = new double[weightsAndBiases.length][][]; //Create Prev Changes: create the layers array
         for(int layer = 0; layer < weightsAndBiases.length; layer++){
@@ -151,6 +153,8 @@ public class RProp implements LearningRule {
         int epoch = 0;
         double error = Double.MAX_VALUE; //temporary value to get through the first while loop
         //End conditions: #epochs or errorGoal reached. -1 indicates that the other method is being used (both is applicable too)
+        //double previousError = Double.MAX_VALUE;
+        String results = "";
         while((epoch < maxEpochs || epoch == -1) && (errorGoal == -1 || error > errorGoal)) { //Start of each epoch
             error = 0;
             double[][][] weightsAndBiasChanges = new double[weightsAndBiases.length][][]; //Create W&BChanges: create the layers array
@@ -164,13 +168,14 @@ public class RProp implements LearningRule {
                 }
             }//initialize weightsAndBiasChanges
             for (int exampleNum = 0; exampleNum < movesPerEpoch; exampleNum++) { //iterate through each training example
-                SnakeGame snakeGame = new SnakeGame(12);
+                SnakeGame snakeGame = new SnakeGame(12, randomSeed);
                 while (exampleNum < movesPerEpoch) {
                     double[] trainingRow = snakeGame.getTrainingRow();
                     boolean display = false;
                     if (exampleNum == 0) display = true;
                     double[][] activationLayers = getActivationLayers(trainingRow, weightsAndBiases);
-                    double[] desiredOutput = snakeGame.calculateBestMove(1,1,1); //initialize desiredOutput for the output layer
+                    double[] desiredOutput = snakeGame.playAIMove();
+                    if(snakeGame.isGameOver()) break;
                     error += calculateError(activationLayers[activationLayers.length - 1], desiredOutput);
                     //THE RECURSIVE FUNCTION CALL
                     trainRecursive(weightsAndBiases.length - 1, weightsAndBiases, weightsAndBiasChanges, activationLayers, desiredOutput, display);
@@ -205,11 +210,15 @@ public class RProp implements LearningRule {
                         prevChanges[layer][node][prevNode] = step; //record change to prevChanges
                     }
                 }
-            }
+            } //Rprop algorithm
             error = error / movesPerEpoch;
-            if (epoch % 50 == 0) System.out.println("Epoch " + epoch + ", Error: " + error);
+            results = results.concat(error+"\t");
+            finalError = error;
+            //if(Math.abs(error - previousError) < 0.0000001) break;
+            //previousError = error;
             epoch++;
         }//epochs
+        experimentResults = results;
         return weightsAndBiases;
     }//train
 
@@ -261,9 +270,18 @@ public class RProp implements LearningRule {
     private double calculateError(double[] actualOutput, double[] desiredOutput){
         double error = 0;
         for(int i = 0; i < desiredOutput.length; i++){
+            //System.out.println("actualOutput["+i+"] = "+actualOutput[i]+", desiredOutput["+i+"] = "+desiredOutput[i]);
             error += (desiredOutput[i] - actualOutput[i])*(desiredOutput[i] - actualOutput[i]);
         }
         return error;
     }//calculateError
+
+    public String getExperimentResults() {
+        return experimentResults;
+    }
+
+    public double getFinalError(){
+        return finalError;
+    }
 }
 

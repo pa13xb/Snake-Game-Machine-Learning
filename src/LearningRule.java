@@ -28,5 +28,9 @@ public interface LearningRule {
 
     double[][][] train(double[][][] weightsAndBiases, LinkedList<double[]> trainingSet, LinkedList<double[]> desiredResults);
 
-    double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch);
+    double[][][] selfTrain(double[][][] weightsAndBiases, int movesPerEpoch, long randomSeed);
+    
+    String getExperimentResults();
+
+    public double getFinalError();
 }
