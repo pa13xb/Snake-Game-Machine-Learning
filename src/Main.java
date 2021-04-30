@@ -274,7 +274,7 @@ public class Main {
 
     private void runTestingExperiments(Scanner scanner){
         NeuralNet neuralNet = loadNeuralNetwork(scanner);
-        int numExperiments = 50;
+        int numExperiments = 1000;
         long[] randomSeeds = new long[numExperiments];
         int[] scores = new int[numExperiments];
         for(int i = 0; i < numExperiments; i++) {
