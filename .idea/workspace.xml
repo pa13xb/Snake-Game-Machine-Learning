@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d1e8a008-cd0e-4800-a980-10a55ffcb572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ExperimentData/ExperimentResults.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ExperimentData/ExperimentResults.xlsx" afterDir="false" />
-    </list>
+    <list default="true" id="d1e8a008-cd0e-4800-a980-10a55ffcb572" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -255,6 +253,15 @@
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="antWorkspaceConfiguration">
