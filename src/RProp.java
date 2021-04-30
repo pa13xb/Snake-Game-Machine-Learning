@@ -153,7 +153,10 @@ public class RProp implements LearningRule {
         int epoch = 0;
         double error = Double.MAX_VALUE; //temporary value to get through the first while loop
         //End conditions: #epochs or errorGoal reached. -1 indicates that the other method is being used (both is applicable too)
-        //double previousError = Double.MAX_VALUE;
+        double previousError1 = Double.MAX_VALUE;
+        double previousError2 = Double.MAX_VALUE;
+        double previousError3 = Double.MAX_VALUE;
+        double previousError4 = Double.MAX_VALUE;
         String results = "";
         while((epoch < maxEpochs || epoch == -1) && (errorGoal == -1 || error > errorGoal)) { //Start of each epoch
             error = 0;
@@ -213,9 +216,16 @@ public class RProp implements LearningRule {
             } //Rprop algorithm
             error = error / movesPerEpoch;
             results = results.concat(error+"\t");
+            if(epoch % 50 == 0 || epoch == maxEpochs - 1) System.out.println("Epoch:"+epoch+" Error:"+error);
             finalError = error;
-            //if(Math.abs(error - previousError) < 0.0000001) break;
-            //previousError = error;
+            if(Math.abs(error - previousError1) < 0.0000001) break;
+            if(Math.abs(error - previousError2) < 0.0000001) break;
+            if(Math.abs(error - previousError3) < 0.0000001) break;
+            if(Math.abs(error - previousError4) < 0.0000001) break;
+            previousError4 = previousError3;
+            previousError3 = previousError2;
+            previousError2 = previousError1;
+            previousError1 = error;
             epoch++;
         }//epochs
         experimentResults = results;

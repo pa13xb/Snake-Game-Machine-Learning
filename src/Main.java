@@ -16,7 +16,8 @@ public class Main {
             System.out.println("2: Let the evaluation function play a game");
             System.out.println("3: Train AI");
             System.out.println("4: Play a game with a saved AI");
-            System.out.println("5: Run autonomous experiments");
+            System.out.println("5: Run training experiments");
+            System.out.println("6: Run testing experiments");
             System.out.println("0: Quit");
             try {
                 int input = scanner.nextInt();
@@ -68,7 +69,10 @@ public class Main {
                         playAIGames(neuralNet, scanner);
                         break;
                     case 5: //run autonomous experiments
-                        runExperiments();
+                        runTrainingExperiments();
+                        break;
+                    case 6:
+                        runTestingExperiments(scanner);
                         break;
                 }
             } catch (InputMismatchException e) {
@@ -134,24 +138,27 @@ public class Main {
     }
 
     private void playAIGames(NeuralNet neuralNet, Scanner scanner) {
-        for (; ; ) {
-            try {
-                System.out.println("Choose a random seed (-1 for Math.random)");
-                long randomSeed = scanner.nextLong();
-                Display display = new Display(numTiles, tileSize);
-                SnakeGame snakeGame = new SnakeGame(numTiles, tileSize, display, neuralNet, true, randomSeed);
-                System.out.println("Play another game?\n1: Yes\n2: Quit");
-                int input = scanner.nextInt();
-                if (input == 2) {
-                    snakeGame.closeDisplay();
-                    break;
-                } else if (input != 1) throw new InputMismatchException();
-                else snakeGame.closeDisplay();
-            } catch (InputMismatchException e) {
-                System.out.print("Input error caught");
-                scanner.next();
+        if (neuralNet != null) {
+            for (; ; ) {
+                try {
+                    System.out.println("Choose a random seed (-1 for Math.random)");
+                    long randomSeed = scanner.nextLong();
+                    Display display = new Display(numTiles, tileSize);
+                    SnakeGame snakeGame = new SnakeGame(numTiles, tileSize, display, neuralNet, true, randomSeed);
+                    System.out.println("Play another game?\n1: Yes\n2: Quit");
+                    int input = scanner.nextInt();
+                    if (input == 2) {
+                        snakeGame.closeDisplay();
+                        break;
+                    } else if (input != 1) throw new InputMismatchException();
+                    else snakeGame.closeDisplay();
+                } catch (InputMismatchException e) {
+                    System.out.print("Input error caught");
+                    scanner.next();
+                }
             }
         }
+        else System.out.print("NeuralNet = null\n");
     }
 
     private void saveNeuralNetwork(NeuralNet neuralNet, Scanner scanner, String filePath, boolean humanInput) {
@@ -197,24 +204,25 @@ public class Main {
         return null;
     }
 
-    private void runExperiments(){
+    private void runTrainingExperiments(){
         int numExperiments = 12;
-        int runsPerExperiment = 30;
-        int maxEpochs = 5;
-        int movesPerEpoch = 3;
+        int runsPerExperiment = 1;
+        int maxEpochs = 1000;
+        int movesPerEpoch = 1000;
         double[] increaseRates = {1.1, 1.6, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2, 1.2};
         double[] decreaseRates = {0.5, 0.5, 0.7, 0.2, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
         double[] maxSteps =  {50.0, 50.0, 50.0, 50.0, 100.0, 10.0, 50.0, 50.0, 50.0, 50.0, 50.0, 50.0};
         double[] minSteps = {0.0001,0.0001,0.0001,0.0001,0.0001,0.0001,0.01,0.000001,0.0001,0.0001,0.0001,0.0001};
         long[] randomSeeds = {0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0};
         int[][] hiddenLayers = {{100,50},{100,50},{100,50},{100,50},{100,50},{100,50},{100,50},{100,50},{100,50},{},{100},{1000,500}};
-        for(int expNum = 0; expNum < numExperiments; expNum++){
+        for(int expNum = 11; expNum < numExperiments; expNum++){
+            System.out.println("Beginning exp_num "+expNum+"\n\n");
             double increaseRate = increaseRates[expNum];
             double decreaseRate = decreaseRates[expNum];
             double maxStep = maxSteps[expNum];
             double minStep = minSteps[expNum];
             long randomSeed = randomSeeds[expNum];
-            int[] layers = new int[hiddenLayers.length + 2];
+            int[] layers = new int[hiddenLayers[expNum].length + 2];
             layers[0] = 12;
             layers[layers.length - 1] = 3;
             for(int i = 0; i < hiddenLayers[expNum].length; i++){
@@ -224,6 +232,7 @@ public class Main {
             NeuralNet bestNetwork = null;
             double lowestError = Double.MAX_VALUE;
             for(int runNum = 0; runNum < runsPerExperiment; runNum++){
+                System.out.println("Beginning runNum "+runNum);
                 NeuralNet neuralNet = new NeuralNet(layers);
                 RProp rProp = new RProp();
                 rProp.setMaxEpochs(maxEpochs);
@@ -233,7 +242,19 @@ public class Main {
                 rProp.setMinStep(minStep);
                 neuralNet.setLearningRule(rProp);
                 neuralNet.setActivationFunction(new Sigmoid());
-                neuralNet.selfTrain(movesPerEpoch,randomSeed);
+                /*System.out.println("maxEpochs: "+maxEpochs);
+                System.out.println("increaseRate: "+increaseRate);
+                System.out.println("decreaseRate: "+decreaseRate);
+                System.out.println("maxStep: "+maxStep);
+                System.out.println("minStep: "+minStep);
+                System.out.println("maxEpochs: "+maxEpochs);
+                System.out.println("movesPerEpoch: "+movesPerEpoch);
+                System.out.println("layers.length: "+layers.length);
+                System.out.println("layer 0: "+layers[0]);
+                System.out.println("layer 1: "+layers[1]);
+                System.out.println("layer 2: "+layers[2]);
+                System.out.println("layer 3: "+layers[3]);*/
+                neuralNet.selfTrain(movesPerEpoch, randomSeed);
                 if(neuralNet.getError() < lowestError){
                     lowestError = neuralNet.getError();
                     bestNetwork = neuralNet;
@@ -248,6 +269,22 @@ public class Main {
             fileName = "ExpNum_"+expNum+"_Lowest_Error_"+rounded+".txt";
             filePath = "C:\\Users\\phili\\Google_Drive\\Brock_Computer_Science_Degree\\COSC_4P76_Machine_Learning\\SavedNeuralNetworks\\"+fileName;
             saveTextFile(filePath, experimentResults);
+        }
+    }
+
+    private void runTestingExperiments(Scanner scanner){
+        NeuralNet neuralNet = loadNeuralNetwork(scanner);
+        int numExperiments = 50;
+        long[] randomSeeds = new long[numExperiments];
+        int[] scores = new int[numExperiments];
+        for(int i = 0; i < numExperiments; i++) {
+            long randomSeed = (long)(Math.random()*Long.MAX_VALUE);
+            randomSeeds[i] = randomSeed;
+            SnakeGame snakeGame = new SnakeGame(numTiles, tileSize, null, neuralNet, false, randomSeed);
+            scores[i] = snakeGame.getScore();
+        }
+        for(int i = 0; i < numExperiments; i++){
+            System.out.println("Score = "+scores[i]+", seed = "+randomSeeds[i]);
         }
     }
 

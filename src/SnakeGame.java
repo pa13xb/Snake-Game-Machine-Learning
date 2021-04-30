@@ -12,6 +12,7 @@ class SnakeGame {
     private int score;
     private int timeSurvived;
     private int animationDelay = 200;
+    private int gameOverTimer = 0;
     private Node snake;
     private int snakeSize;
     private boolean gameOver;
@@ -23,6 +24,7 @@ class SnakeGame {
     private Display display = null;
     private Random randomSeed;
     private double hunger = 1.0;
+    boolean nextMove = false;
 
     SnakeGame(int numTiles, long randomSeed) {
         if(randomSeed == -1) randomSeed = (long)(Math.random()*Long.MAX_VALUE);
@@ -77,10 +79,8 @@ class SnakeGame {
             jFrame.setResizable(false);
             jFrame.setVisible(true);
             jFrame.addKeyListener(getKeyListener());
-            functionPlayGame(true, neuralNet);
-        } else{
-            //do testing experiments here
         }
+        functionPlayGame(true, neuralNet);
     }
 
     private KeyListener getKeyListener() {
@@ -96,15 +96,19 @@ class SnakeGame {
                 if (keyCode == 38) {//up
                     begin = true;
                     if (prevOrientation != 2) snakeOrientation = 0;
+                    nextMove = true;
                 } else if (keyCode == 39) {//right
                     begin = true;
                     if (prevOrientation != 3) snakeOrientation = 1;
+                    nextMove = true;
                 } else if (keyCode == 40) {//down
                     begin = true;
                     if (prevOrientation != 0) snakeOrientation = 2;
+                    nextMove = true;
                 } else if (keyCode == 37) {//left
                     begin = true;
                     if (prevOrientation != 1) snakeOrientation = 3;
+                    nextMove = true;
                 }
             }
 
@@ -138,9 +142,12 @@ class SnakeGame {
     }//resetGameBoard
 
     private void humanPlayGame() {
+        nextMove = false;
         long startTime = System.currentTimeMillis();
         while (!gameOver) {
             if (System.currentTimeMillis() - startTime > animationDelay) {
+            //if(nextMove){
+                nextMove = false;
                 startTime = System.currentTimeMillis();
                 if (begin) {
                     int moveRow = snake.row;
@@ -195,14 +202,21 @@ class SnakeGame {
         long startTime = System.currentTimeMillis();
         hunger = 1.0;
         while (!gameOver) {
-            if (System.currentTimeMillis() - startTime > animationDelay / 2) {
+            if (!showDisplay || System.currentTimeMillis() - startTime > animationDelay / 2) {
                 startTime = System.currentTimeMillis();
                 int moveRow = snake.row;
                 int moveCol = snake.col;
                 //if(!AI) {//old way
                     int move = 0;
                     double[] moves;
-                    if(AI) moves = neuralNet.calculate(getTrainingRow());
+                    if(AI) {
+                        moves = neuralNet.calculate(getTrainingRow());
+                        /*System.out.println("AI Calculated Moves:");
+                        for (int i = 0; i < moves.length; i++) {
+                            System.out.print(i + " = " + moves[i]);
+                        }
+                        System.out.println();*/
+                    }
                     else moves = calculateBestMove(0, snakeOrientation, false);
                     double bestScore = -2000000;
                     for (int i = 0; i < 3; i++) {
@@ -300,14 +314,16 @@ class SnakeGame {
                         generateApple();
                         hunger = 1.0;
                         score++;
-                    }
+                        gameOverTimer = 0;
+                    } else gameOverTimer++;
+                    if(gameOverTimer > 1000) gameOver = true;
                     timeSurvived++;
                 } else gameOver = true;
-                display.repaint();
+                if(showDisplay) display.repaint();
                 hunger += 0.01;
             }
         }
-        display.setGameOver(score, timeSurvived);
+        if(showDisplay) display.setGameOver(score, timeSurvived);
         System.out.println("Gameover = " + gameOver);
     }//AIPlayGame
 
@@ -556,6 +572,7 @@ class SnakeGame {
                         double distance = Math.sqrt(Math.pow((snake.row - appleRow), 2) + Math.pow((snake.col - appleCol), 2)); //Euclidean Distance
                         //double maxDistance = Math.sqrt(Math.pow((0 - 11), 2) + Math.pow((0 - 11), 2)); //Euclidean Distance
                         inputRow[i + 3] = (hunger * distance) / 15.55634918; //normalize distance (before hunger)
+                        //System.out.println("Orientation = "+i+", emptySpaces = "+inputRow[i]+", distance = "+inputRow[i+3]);
                     }
                 } //calculate score
                 { //Revert snake back to original position
@@ -609,6 +626,11 @@ class SnakeGame {
             }
             snakeOrientation = prevOrientation;
         }
+
+        /*System.out.println("inputRow:");
+        for(int i = 0; i < 12; i++){
+            System.out.println(i+" = "+inputRow[i]);
+        }*/
         if(AI) return inputRow;
         else return moveScores;
     }
@@ -658,5 +680,9 @@ class SnakeGame {
 
     boolean isGameOver(){
         return gameOver;
+    }
+
+    int getScore(){
+        return score;
     }
 }
