@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1e8a008-cd0e-4800-a980-10a55ffcb572" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExperimentData/ExperimentResults.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/ExperimentData/ExperimentResults.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="288" column="5" selection-start-line="288" selection-start-column="5" selection-end-line="288" selection-end-column="5" />
+            <state relative-caret-position="508">
+              <caret line="211" column="38" selection-start-line="211" selection-start-column="38" selection-end-line="211" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#trainAI#0;class#Main#0" />
@@ -28,7 +26,7 @@
                 <element signature="method#saveNeuralNetwork#0;class#Main#0" />
                 <element signature="method#saveTextFile#0;class#Main#0" />
                 <element signature="method#loadNeuralNetwork#0;class#Main#0" />
-                <element signature="method#runTrainingExperiments#0;class#Main#0" />
+                <element signature="method#runTestingExperiments#0;class#Main#0" />
                 <element signature="e#14167#14168#0" expanded="true" />
                 <element signature="e#14193#14194#0" expanded="true" />
               </folding>
@@ -52,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SnakeGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="100">
+              <caret line="42" column="48" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getKeyListener#0;class#SnakeGame#0" />
@@ -406,28 +404,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="288" column="5" selection-start-line="288" selection-start-column="5" selection-end-line="288" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#trainAI#0;class#Main#0" />
-            <element signature="method#playAIGames#0;class#Main#0" />
-            <element signature="method#saveNeuralNetwork#0;class#Main#0" />
-            <element signature="method#saveTextFile#0;class#Main#0" />
-            <element signature="method#loadNeuralNetwork#0;class#Main#0" />
-            <element signature="method#runTrainingExperiments#0;class#Main#0" />
-            <element signature="e#14167#14168#0" expanded="true" />
-            <element signature="e#14193#14194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SnakeGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="100">
+          <caret line="42" column="48" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getKeyListener#0;class#SnakeGame#0" />
@@ -445,6 +425,24 @@
             <element signature="e#29572#29573#0" expanded="true" />
             <element signature="e#29593#29594#0" expanded="true" />
             <element signature="e#29621#29622#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="211" column="38" selection-start-line="211" selection-start-column="38" selection-end-line="211" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#trainAI#0;class#Main#0" />
+            <element signature="method#playAIGames#0;class#Main#0" />
+            <element signature="method#saveNeuralNetwork#0;class#Main#0" />
+            <element signature="method#saveTextFile#0;class#Main#0" />
+            <element signature="method#loadNeuralNetwork#0;class#Main#0" />
+            <element signature="method#runTestingExperiments#0;class#Main#0" />
+            <element signature="e#14167#14168#0" expanded="true" />
+            <element signature="e#14193#14194#0" expanded="true" />
           </folding>
         </state>
       </provider>
