@@ -5,6 +5,9 @@ import java.util.LinkedList;
  * email pa13xb@brocku.ca
  *
  * This interface specifies a learning rule, and accomodates backprop as well as rprop
+ *
+ * Note: this code was modified from the neural network created by Philip Akkerman for
+ * assignment 1.
  */
 public interface LearningRule {
 

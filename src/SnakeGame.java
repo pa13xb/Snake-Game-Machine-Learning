@@ -3,6 +3,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
+/**
+ * @author Philip Akkerman
+ * studentID 5479613
+ * email pa13xb@brocku.ca
+ *
+ * @author David Hasler
+ * studentID 6041321
+ * email dh15pd@brocku.ca
+ *
+ * This is the SnakeGame class that creates a game of Snake. It also has different constructors which allow different
+ * methods of playing the game. A human, evaluation function, or neural network can play the Snake game.
+ */
 class SnakeGame {
 
     private int numTiles;
@@ -26,6 +38,12 @@ class SnakeGame {
     private double hunger = 1.0;
     boolean nextMove = false;
 
+    /**
+     * SnakeGame constructor for creating the Snake game of a specific size with a random seed.
+     *
+     * @param numTiles the number of tiles for each row and column of the game board
+     * @param randomSeed random seed used to randomize apple locations
+     */
     SnakeGame(int numTiles, long randomSeed) {
         if(randomSeed == -1) randomSeed = (long)(Math.random()*Long.MAX_VALUE);
         this.randomSeed = new Random(randomSeed);
@@ -35,6 +53,14 @@ class SnakeGame {
         showDisplay = false;
     }//constructor
 
+    /**
+     * SnakeGame constructor for creating a game of snake that the human or evaluation function can play.
+     *
+     * @param numTiles the number of tiles for each row and column of the game board
+     * @param tileSize the size of a tile in the game board
+     * @param display display used to display the snake game
+     * @param human if true then human is playing, false the evaluation function plays
+     */
     SnakeGame(int numTiles, int tileSize, Display display, boolean human) {
         long seed = (long)(Math.random()*Long.MAX_VALUE);
         randomSeed = new Random(seed);
@@ -59,6 +85,16 @@ class SnakeGame {
         else functionPlayGame(false, null);
     }//constructor
 
+    /**
+     * SnakeGame constructor for creating a game that the neural network would train and test on.
+     *
+     * @param numTiles the number of tiles for each row and column of the game board
+     * @param tileSize the size of a tile in the game board
+     * @param display display used to display the snake game
+     * @param neuralNet if true then neural net is playing, false the evaluation function plays
+     * @param showDisplay if true then it will show the game of Snake being played
+     * @param seed random seed used to randomize apple locations
+     */
     SnakeGame(int numTiles, int tileSize, Display display, NeuralNet neuralNet, boolean showDisplay, long seed){
         if(seed == -1)seed = (long)(Math.random()*Long.MAX_VALUE);
         randomSeed = new Random(seed);
@@ -83,12 +119,15 @@ class SnakeGame {
         functionPlayGame(true, neuralNet);
     }
 
+    /**
+     * getKeyListener returns a key when it is the right key pressed. For human player input of snake.
+     *
+     * @return key typed
+     */
     private KeyListener getKeyListener() {
         KeyListener keyListener = new KeyListener() {
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
+            public void keyTyped(KeyEvent e) { }
 
             @Override
             public void keyPressed(KeyEvent e) {
@@ -113,13 +152,16 @@ class SnakeGame {
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
+            public void keyReleased(KeyEvent e) { }
         };
         return keyListener;
-    }
+    }//getKeyListener
 
+    /**
+     * resetGameBoard will reset board that the Snake game is played on.
+     *
+     * @param gameBoard the board which everything is placed on
+     */
     private void resetGameBoard(int[][] gameBoard) {
         score = 0;
         timeSurvived = 0;
@@ -141,6 +183,9 @@ class SnakeGame {
         generateApple();
     }//resetGameBoard
 
+    /**
+     *  A method which allows the human player to play the Snake game.
+     */
     private void humanPlayGame() {
         nextMove = false;
         long startTime = System.currentTimeMillis();
@@ -157,7 +202,7 @@ class SnakeGame {
                     else if (snakeOrientation == 2) moveRow++;
                     else moveCol--;
                     prevOrientation = snakeOrientation;
-                    if (!collision(moveRow, moveCol)) {
+                    if (collision(moveRow, moveCol)) {
                         boolean appleEaten = false;
                         if (gameBoard[moveRow][moveCol] == 3) appleEaten = true;
                         int prevRow = snake.row;
@@ -198,6 +243,13 @@ class SnakeGame {
         System.out.println("Gameover = " + gameOver);
     }//humanPlayGame
 
+    /**
+     * functionPlayGame is a method which allows the evaluation function to play the Snake game, or it will also let the
+     * neural net train on the evaluation function playing the Snake game.
+     *
+     * @param AI if true then neural net is playing, false the evaluation function plays
+     * @param neuralNet Neural Net which will be used to train
+     */
     private void functionPlayGame(boolean AI, NeuralNet neuralNet) {
         long startTime = System.currentTimeMillis();
         hunger = 1.0;
@@ -211,11 +263,6 @@ class SnakeGame {
                     double[] moves;
                     if(AI) {
                         moves = neuralNet.calculate(getTrainingRow());
-                        /*System.out.println("AI Calculated Moves:");
-                        for (int i = 0; i < moves.length; i++) {
-                            System.out.print(i + " = " + moves[i]);
-                        }
-                        System.out.println();*/
                     }
                     else moves = calculateBestMove(0, snakeOrientation, false);
                     double bestScore = -2000000;
@@ -246,44 +293,7 @@ class SnakeGame {
                     else if (moveCol > snake.col) snakeOrientation = 1; //east
                     else if (moveRow > snake.row) snakeOrientation = 2; //south
                     else snakeOrientation = 3; //west
-                //}//old way
-                /*else{
-                    double[] outputLayer = neuralNet.calculate(getTrainingRow()); //N,E,S,W
-                    double max = -2000000;
-                    int orientation = 0;
-                    for(int i = 0; i < outputLayer.length; i++){
-                        if(outputLayer[i] > max){
-                            max = outputLayer[i];
-                            orientation = i;
-                        }
-                    }
-                    if (orientation == 0) {//0 = North
-                        if(snakeOrientation == 2) moveRow++;
-                        else {
-                            moveRow--;
-                            snakeOrientation = orientation;
-                        }
-                    } else if (orientation == 1) {//1 = East
-                        if(snakeOrientation == 3) moveCol--;
-                        else {
-                            moveCol++;
-                            snakeOrientation = orientation;
-                        }
-                    } else if (orientation == 2) {//2 = South
-                        if(snakeOrientation == 0) moveRow--;
-                        else {
-                            moveRow++;
-                            snakeOrientation = orientation;
-                        }
-                    } else {//3 = West
-                        if(snakeOrientation == 1) moveCol++;
-                        else {
-                            moveCol--;
-                            snakeOrientation = orientation;
-                        }
-                    }
-                }*///old way
-                if (!collision(moveRow, moveCol)) {
+                if (collision(moveRow, moveCol)) {
                     boolean appleEaten = false;
                     if (gameBoard[moveRow][moveCol] == 3) appleEaten = true;
                     int prevRow = snake.row;
@@ -324,31 +334,22 @@ class SnakeGame {
             }
         }
         if(showDisplay) display.setGameOver(score, timeSurvived);
-        System.out.println("Gameover = " + gameOver);
     }//AIPlayGame
 
+    /**
+     * getTrainingRow will calculate a training row to be used as input for the neural network.
+     *
+     * @return a training row for the neural network
+     */
     double[] getTrainingRow(){
-        /* Old way:
-        double[] trainingRow = new double[numTiles*numTiles+2+4];
-        int index = 0;
-        for(int row = 0; row < numTiles; row++){
-            for(int col = 0; col < numTiles; col++){
-                trainingRow[index] = gameBoard[row][col];
-                index++;
-            }
-        }
-        trainingRow[index] = (snake.row * numTiles + snake.col);
-        index++;
-        trainingRow[index] = (appleRow * numTiles + appleCol);
-        index++;
-        for(int i = 0; i < 4; i++){
-            if(snakeOrientation == i) trainingRow[index] = 1;
-            else trainingRow[index] = 0;
-            index++;
-        }*/
         return calculateBestMove(0,snakeOrientation,true);
-    }
+    }//getTrainingRow
 
+    /**
+     *  playAIMove is a method that will use the neural network to play a move in the Snake game.
+     *
+     * @return returns an array of the move made
+     */
     double[] playAIMove() {
         double[] moves = calculateBestMove(0, snakeOrientation, false);
         double bestScore = -2000000;
@@ -382,7 +383,7 @@ class SnakeGame {
         else if (moveCol > snake.col) snakeOrientation = 1; //east
         else if (moveRow > snake.row) snakeOrientation = 2; //south
         else snakeOrientation = 3; //west
-        if (!collision(moveRow, moveCol)) {
+        if (collision(moveRow, moveCol)) {
             boolean appleEaten = false;
             if (gameBoard[moveRow][moveCol] == 3) appleEaten = true;
             int prevRow = snake.row;
@@ -424,7 +425,16 @@ class SnakeGame {
         return moveOutput;
     }//playAIMove
 
-    double[] calculateBestMove(int depth, int snakeOrientation, boolean AI) {
+    /**
+     * calculateBestMove will check the left, straight, and right moves to see and return back the best possible score
+     * in that direction.
+     *
+     * @param depth recursive depth to make sure Snake does not do too many recursive calls
+     * @param snakeOrientation current orientation of the snake
+     * @param AI if using AI then it will change neural network input calculation
+     * @return array of ints of best moves
+     */
+    private double[] calculateBestMove(int depth, int snakeOrientation, boolean AI) {
         //0 = Left, 1 = Straight, 2 = Right
         double[] moveScores = {0, 0, 0};
         double[] inputRow = new double[12]; //spaces available[0-2], distance to apple[3-5], death[6-8], apple eaten[9-11]
@@ -454,7 +464,7 @@ class SnakeGame {
             else if (moveRow > snake.row) snakeOrientation = 2; //south
             else snakeOrientation = 3; //east
 
-            if (!collision(moveRow, moveCol)) {
+            if (collision(moveRow, moveCol)) {
                 boolean appleEaten = false;
                 if (gameBoard[moveRow][moveCol] == 3) appleEaten = true;
                 int tailRow = 0; //record tail's position
@@ -491,7 +501,7 @@ class SnakeGame {
                 }//move snake
 
                 //Calculate scores based on gameboard:
-                if (depth < 1) { // calculate future moves
+                if (depth < 1) { // calculate future moves (only to a depth of 1)
                     if(!AI) {
                         double[] moves = calculateBestMove(depth + 1, snakeOrientation, AI);
                         int bestMove = 0;
@@ -508,7 +518,7 @@ class SnakeGame {
                             moveScores[i] = moveScores[i] + 10;
                         }
                     }
-                    else {
+                    else { //evaluation function
                         double[] inputs = calculateBestMove(depth + 1, snakeOrientation, AI);
                         double bestSpaces = 0;
                         double bestDistance = 1.0;
@@ -552,7 +562,7 @@ class SnakeGame {
 
 
                     }
-                    else {
+                    else { //evaluation function
                         inputRow[i + 6] = 0.0;
                         if (appleEaten) {
                             inputRow[i + 9] = 1.0;
@@ -633,8 +643,16 @@ class SnakeGame {
         }*/
         if(AI) return inputRow;
         else return moveScores;
-    }
+    }//calculateBestMove
 
+    /**
+     * calcSpacesAvailable is a method that returns the spaces available for the snake.
+     *
+     * @param countedSquares keeps track of squares counted
+     * @param row current row checked
+     * @param col current col checked
+     * @return number of spaces available
+     */
     private int calcSpacesAvailable(int[][] countedSquares, int row, int col) {
         int spaces = 0;
         int moveRow;
@@ -655,12 +673,22 @@ class SnakeGame {
         return spaces;
     }//calcRecursive
 
+    /**
+     * collision is a method that returns whether the snake has collided with an object that would end the game.
+     *
+     * @param moveRow the row to test
+     * @param moveCol the column to test
+     * @return false if there was a collision
+     */
     private boolean collision(int moveRow, int moveCol) {
-        if (moveRow < 0 || moveRow >= numTiles) return true;
-        else if (moveCol < 0 || moveCol >= numTiles) return true;
-        else return gameBoard[moveRow][moveCol] == 2;
+        if (moveRow < 0 || moveRow >= numTiles) return false;
+        else if (moveCol < 0 || moveCol >= numTiles) return false;
+        else return gameBoard[moveRow][moveCol] != 2;
     }//collision
 
+    /**
+     * generateApple creates a new apple on the game board using the random seed for the snake game
+     */
     private void generateApple() {
         for (; ; ) {
             int randRow = (int) (randomSeed.nextDouble() * numTiles);
@@ -674,15 +702,29 @@ class SnakeGame {
         }
     }//generateApple
 
+    /**
+     * closeDisplay closes the current display being used to display the snake game.
+     *
+     */
     void closeDisplay() {
         jFrame.dispose();
-    }
+    }//closeDisplay
 
+    /**
+     * isGameOver returns whether the game has ended.
+     *
+     * @return gameOver
+     */
     boolean isGameOver(){
         return gameOver;
-    }
+    }//isGameOver
 
+    /**
+     * getScore returns the score of the game.
+     *
+     * @return score
+     */
     int getScore(){
         return score;
-    }
-}
+    }//getScore
+}//SnakeGame
