@@ -300,18 +300,6 @@ public class Main {
                 rProp.setMinStep(minStep);
                 neuralNet.setLearningRule(rProp);
                 neuralNet.setActivationFunction(new Sigmoid());
-                /*System.out.println("maxEpochs: "+maxEpochs);
-                System.out.println("increaseRate: "+increaseRate);
-                System.out.println("decreaseRate: "+decreaseRate);
-                System.out.println("maxStep: "+maxStep);
-                System.out.println("minStep: "+minStep);
-                System.out.println("maxEpochs: "+maxEpochs);
-                System.out.println("movesPerEpoch: "+movesPerEpoch);
-                System.out.println("layers.length: "+layers.length);
-                System.out.println("layer 0: "+layers[0]);
-                System.out.println("layer 1: "+layers[1]);
-                System.out.println("layer 2: "+layers[2]);
-                System.out.println("layer 3: "+layers[3]);*/
                 neuralNet.selfTrain(movesPerEpoch, randomSeed);
                 if (neuralNet.getError() < lowestError) {
                     lowestError = neuralNet.getError();

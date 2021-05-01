@@ -1,0 +1,3 @@
+The results are in the ExperimentResults file.
+The Text Documents contain the error for each epoch in a tab delimited format between each epoch, with new lines for each run.
+The numbered extension files are the neural networks that you can load and test. (they are only numbered because there was a decimal point in the name)
